@@ -1,0 +1,53 @@
+<div class="container" id="dashboard" ng-controller="dashboardController">
+	<div class="row" id="dashboard-user">
+		<div class="col-sm-4">
+			<h4>Welcome, <span id="current_user">Elon!</span></h4>
+		</div>
+		<div class="col-sm-2 col-sm-offset-6">
+			<a href="/profile" class="btn btn-link">Profile</a> <button type="submit" class="btn btn-link" ng-click="logout()">Logout</button>
+		</div>
+		<div class="col-sm-4 col-sm-offset-4" id="dashboard-search">
+			<input type="text" class="form-control" ng-model="filter_topic" placeholder="Search...">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<table class="table table-striped table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>Category</th>
+						<th>Topic</th>
+						<th>User Name</th>sub
+						<th>Posts</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="topic in topics | filter : filter_topic | orderBy:'created_at'">
+						<td><span ng-bind='topic.category'></span></td>
+						<td><a href="#/topic/{{topic._id}}" class="btn btn-link"><span ng-bind='topic.title'></span></a></td>
+						<td><a ng-href="#/user/{{topic.author}}" class="btn btn-link"><span ng-bind='topic.author'></span></a></td>
+						<td><span ng-bind='topic.posts'></span></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-8">
+			<h3>Add a new Topic</h4>
+			<h4>Topic</h4>
+			<input type="text" class="form-control" placeholder="topic..." ng-model="newTopic.title">
+			<h4>Description</h4>
+			<textarea class="form-control" rows="3" placeholder="description..." ng-model="newTopic.description"></textarea>
+			<h4>Category</h4>
+			<select class="form-control" ng-model='newTopic.category'>
+				<option value="">--SELECT--</option>
+				<option value="Ruby on Rails">Ruby on Rails</option>
+				<option value="MySQL">MySQL</option>
+				<option value="UX">UX</option>
+				<option value="Web Development">Web Development</option>
+			</select>
+			<button type="submit" class="btn btn-default" ng-click='addTopic()'>Add Topic</button>
+		</div>
+	</div>
+</div>
